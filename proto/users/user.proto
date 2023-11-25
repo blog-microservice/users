@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package users;
+
+option go_package = "infrastructure/grpc/pb";
+
+import "google/annotations.proto";
+
+service Users {
+    rpc CreateUser(CreateUserRequest) returns (Response) {
+        option (google.api.http) = {
+        post: "/v1/users"
+        body: "*"
+        };
+    }
+}
+
+message User {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+    string id = 4;
+    int32 created_at = 5;
+    int32 updated_at = 6;
+}
+
+message ResponseUser {
+    string name = 1;
+    string email = 2;
+    string id = 4;
+    int32 created_at = 5;
+    int32 updated_at = 6;
+}
+
+message CreateUserRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+    string id = 4;
+    int32 created_at = 5;
+    int32 updated_at = 6;
+}
+
+message Response {
+    string message = 1;
+    ResponseUser result = 2;
+}
